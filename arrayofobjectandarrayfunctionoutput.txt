@@ -1,0 +1,32 @@
+enter rollno,name and mark of 3 subject  :1
+raj
+99
+88
+77
+enter rollno,name and mark of 3 subject  :2
+abhay
+90
+80
+70
+enter rollno,name and mark of 3 subject  :3
+yash
+95
+85
+75
+enter rollno,name and mark of 3 subject  :4
+usman
+96
+86
+76
+enter rollno,name and mark of 3 subject  :5
+vivek
+99
+88
+77
+
+rollno	name	m1	m2	m3	total
+1	raj	99	88	77	264
+2	abhay	90	80	70	250
+3	yash	95	85	75	255
+4	usman	96	86	76	258
+5	vivek	99	88	77	264
