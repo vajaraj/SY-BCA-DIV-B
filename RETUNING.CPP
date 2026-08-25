@@ -1,0 +1,55 @@
+//Returning Object
+
+#include<iostream.h>
+#include<conio.h>
+class A
+{
+	int a;
+	public :
+		void get()
+		{
+			cout<<"\n Enter A number :";
+			cin>>a;
+		}
+		void put()
+		{
+			cout<<"\n A="<<a;
+		}
+		A add(A a1,A a2)
+		{
+			A a3;
+			a3.a=a1.a+a2.a;
+			return a3;
+		}
+		A add(A a2);
+};
+A A::add(A a2)
+{
+	A a3;
+	a3.a=a+a2.a;
+	return a3;
+}
+void main()
+{
+	A a1,a2,a3;
+	clrscr();
+	a1.get();
+	a2.get();
+
+	a3=a1.add(a1,a2);
+	a1.put();
+	a2.put();
+	a3.put();
+
+	a1.get();
+	a2.get();
+
+	a3=a1.add(a2);
+
+	a1.put();
+	a2.put();
+	a3.put();
+
+	getch();
+}
+

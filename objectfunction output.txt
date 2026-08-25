@@ -1,0 +1,16 @@
+ENTER TWO NUMBER :10
+20
+
+a=10	b=20
+after swap1 pass by value :
+a=10	b=20
+after swap2 pass by Referance :
+a=20	b=10
+after swap3 pass by Pointer :
+a=10	b=20
+a=10	b=20
+after swap4 pass const pointer :
+a=10	b=20
+a=10	b=20
+after swap5 pass by conster pointer :
+a=10	b=20
