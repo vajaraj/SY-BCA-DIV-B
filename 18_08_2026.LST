@@ -1,0 +1,355 @@
+DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT *
+  4          FROM employee
+  5          ORDER BY salary DESC
+  6          FETCH FIRST 5 ROWS ONLY;
+  7  
+  8  BEGIN
+  9      FOR emp IN emp_cursor LOOP
+ 10          DBMS_OUTPUT.PUT_LINE(emp.employee_id || ' ' || emp.employee_name || ' ' || emp.salary);
+ 11      END LOOP;
+ 12  END;
+ 13  /
+        FETCH FIRST 5 ROWS ONLY;
+        *
+ERROR at line 6:
+ORA-06550: line 6, column 9: 
+PL/SQL: ORA-00933: SQL command not properly ended 
+ORA-06550: line 3, column 9: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT *
+  4          FROM employee
+  5          ORDER BY salary DESC
+  6          FETCH FIRST 5 ROWS ONLY;
+  7  
+  8  BEGIN
+  9      FOR emp IN emp_cursor LOOP
+ 10          DBMS_OUTPUT.PUT_LINE(emp.employee_id || ' ' || emp.employee_name || ' ' || emp.salary);
+ 11      END LOOP;
+ 12  END;
+ 13  /
+        FETCH FIRST 5 ROWS ONLY;
+        *
+ERROR at line 6:
+ORA-06550: line 6, column 9: 
+PL/SQL: ORA-00933: SQL command not properly ended 
+ORA-06550: line 3, column 9: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT *
+  4          FROM (
+  5              SELECT *
+  6              FROM employee
+  7              ORDER BY salary DESC
+  8          )
+  9          WHERE ROWNUM <= 5;
+ 10  
+ 11  BEGIN
+ 12      FOR emp IN emp_cursor LOOP
+ 13          DBMS_OUTPUT.PUT_LINE(
+ 14              emp.employee_id || ' ' ||
+ 15              emp.employee_name || ' ' ||
+ 16              emp.salary
+ 17          );
+ 18      END LOOP;
+ 19  END;
+ 20  /
+            ORDER BY salary DESC
+                     *
+ERROR at line 7:
+ORA-06550: line 7, column 22: 
+PL/SQL: ORA-00904: "SALARY": invalid identifier 
+ORA-06550: line 3, column 9: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 14, column 13: 
+PLS-00364: loop index variable 'EMP' use is invalid 
+ORA-06550: line 13, column 9: 
+PL/SQL: Statement ignored 
+
+
+SQL> DESC employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER
+
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT *
+  4          FROM (
+  5              SELECT *
+  6              FROM employee
+  7              ORDER BY sal DESC
+  8          )
+  9          WHERE ROWNUM <= 5;
+ 10  
+ 11  BEGIN
+ 12      FOR emp IN emp_cursor LOOP
+ 13          DBMS_OUTPUT.PUT_LINE(
+ 14              emp.emp_id || ' ' ||
+ 15              emp.emp_name || ' ' ||
+ 16              emp.sal
+ 17          );
+ 18      END LOOP;
+ 19  END;
+ 20  /
+            ORDER BY sal DESC
+                     *
+ERROR at line 7:
+ORA-06550: line 7, column 22: 
+PL/SQL: ORA-00904: "SAL": invalid identifier 
+ORA-06550: line 3, column 9: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 14, column 13: 
+PLS-00364: loop index variable 'EMP' use is invalid 
+ORA-06550: line 13, column 9: 
+PL/SQL: Statement ignored 
+
+
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT emp_id
+  4          FROM employee
+  5          WHERE ROWNUM <= 5;
+  6  
+  7  BEGIN
+  8      FOR emp IN emp_cursor LOOP
+  9          DBMS_OUTPUT.PUT_LINE('Employee ID: ' || emp.emp_id);
+ 10      END LOOP;
+ 11  END;
+ 12  /
+
+PL/SQL procedure successfully completed.
+
+SQL> ALTER TABLE employee ADD salary NUMBER;
+
+Table altered.
+
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT emp_id, salary
+  4          FROM (
+  5              SELECT emp_id, salary
+  6              FROM employee
+  7              ORDER BY salary DESC
+  8          )
+  9          WHERE ROWNUM <= 5;
+ 10  
+ 11  BEGIN
+ 12      FOR emp IN emp_cursor LOOP
+ 13          DBMS_OUTPUT.PUT_LINE(
+ 14              'Employee ID: ' || emp.emp_id ||
+ 15              ' Salary: ' || emp.salary
+ 16          );
+ 17      END LOOP;
+ 18  END;
+ 19  /
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT emp_name, salary
+  4          FROM employee;
+  5  
+  6      v_name   employee.emp_name%TYPE;
+  7      v_salary employee.salary%TYPE;
+  8  
+  9  BEGIN
+ 10      OPEN emp_cursor;
+ 11  
+ 12      LOOP
+ 13          FETCH emp_cursor INTO v_name, v_salary;
+ 14  
+ 15          EXIT WHEN emp_cursor%NOTFOUND;
+ 16  
+ 17          DBMS_OUTPUT.PUT_LINE(
+ 18              'Name: ' || v_name ||
+ 19              ' Salary: ' || v_salary
+ 20          );
+ 21      END LOOP;
+ 22  
+ 23      CLOSE emp_cursor;
+ 24  END;
+ 25  /
+        SELECT emp_name, salary
+               *
+ERROR at line 3:
+ORA-06550: line 3, column 16: 
+PL/SQL: ORA-00904: "EMP_NAME": invalid identifier 
+ORA-06550: line 3, column 9: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 6, column 23: 
+PLS-00302: component 'EMP_NAME' must be declared 
+ORA-06550: line 6, column 14: 
+PL/SQL: Item ignored 
+ORA-06550: line 13, column 31: 
+PLS-00320: the declaration of the type of this expression is incomplete or 
+malformed 
+ORA-06550: line 13, column 9: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 18, column 25: 
+PLS-00320: the declaration of the type of this expression is incomplete or 
+malformed 
+ORA-06550: line 17, column 9: 
+PL/SQL: Statement ignored 
+
+
+SQL> ALTER TABLE employee ADD (
+  2      emp_name VARCHAR2(50),
+  3      salary NUMBER
+  4  );
+    salary NUMBER
+    *
+ERROR at line 3:
+ORA-01430: column being added already exists in table 
+
+
+SQL> DESC employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER
+ SALARY                                             NUMBER
+
+SQL> EMP_ID
+SP2-0042: unknown command "EMP_ID" - rest of line ignored.
+SQL> EMP_NAME
+SP2-0042: unknown command "EMP_NAME" - rest of line ignored.
+SQL> SALARY
+SP2-0042: unknown command "SALARY" - rest of line ignored.
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT emp_name, salary
+  4          FROM employee;
+  5  
+  6      v_name   employee.emp_name%TYPE;
+  7      v_salary employee.salary%TYPE;
+  8  
+  9  BEGIN
+ 10      OPEN emp_cursor;
+ 11  
+ 12      LOOP
+ 13          FETCH emp_cursor INTO v_name, v_salary;
+ 14  
+ 15          EXIT WHEN emp_cursor%NOTFOUND;
+ 16  
+ 17          DBMS_OUTPUT.PUT_LINE(
+ 18              'Name: ' || v_name ||
+ 19              ', Salary: ' || v_salary
+ 20          );
+ 21      END LOOP;
+ 22  
+ 23      CLOSE emp_cursor;
+ 24  END;
+ 25  /
+        SELECT emp_name, salary
+               *
+ERROR at line 3:
+ORA-06550: line 3, column 16: 
+PL/SQL: ORA-00904: "EMP_NAME": invalid identifier 
+ORA-06550: line 3, column 9: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 6, column 23: 
+PLS-00302: component 'EMP_NAME' must be declared 
+ORA-06550: line 6, column 14: 
+PL/SQL: Item ignored 
+ORA-06550: line 13, column 31: 
+PLS-00320: the declaration of the type of this expression is incomplete or 
+malformed 
+ORA-06550: line 13, column 9: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 18, column 25: 
+PLS-00320: the declaration of the type of this expression is incomplete or 
+malformed 
+ORA-06550: line 17, column 9: 
+PL/SQL: Statement ignored 
+
+
+SQL> DESC employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER
+ SALARY                                             NUMBER
+
+SQL> ALTER TABLE employee ADD emp_name VARCHAR2(50);
+
+Table altered.
+
+SQL> ALTER TABLE employee ADD salary NUMBER;
+ALTER TABLE employee ADD salary NUMBER
+                         *
+ERROR at line 1:
+ORA-01430: column being added already exists in table 
+
+
+SQL> DESC employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER
+ SALARY                                             NUMBER
+ EMP_NAME                                           VARCHAR2(50)
+
+SQL> DECLARE
+  2      CURSOR emp_cursor IS
+  3          SELECT emp_name, salary
+  4          FROM employee;
+  5  
+  6      v_name   employee.emp_name%TYPE;
+  7      v_salary employee.salary%TYPE;
+  8  
+  9  BEGIN
+ 10      OPEN emp_cursor;
+ 11  
+ 12      LOOP
+ 13          FETCH emp_cursor INTO v_name, v_salary;
+ 14  
+ 15          EXIT WHEN emp_cursor%NOTFOUND;
+ 16  
+ 17          DBMS_OUTPUT.PUT_LINE(
+ 18              'Name: ' || v_name ||
+ 19              ', Salary: ' || v_salary
+ 20          );
+ 21      END LOOP;
+ 22  
+ 23      CLOSE emp_cursor;
+ 24  END;
+ 25  /
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> INSERT INTO employee VALUES (1, 50000, 'Rahul');
+
+1 row created.
+
+SQL> INSERT INTO employee VALUES (2, 60000, 'Amit');
+
+1 row created.
+
+SQL> INSERT INTO employee VALUES (3, 55000, 'Priya');
+
+1 row created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER
+ SALARY                                             NUMBER
+ EMP_NAME                                           VARCHAR2(50)
+
+SQL> select *from employee;
+
+    EMP_ID     SALARY EMP_NAME                                                  
+---------- ---------- --------------------------------------------------        
+         1      50000 Rahul                                                     
+         2      60000 Amit                                                      
+         3      55000 Priya                                                     
+
+SQL> 

@@ -1,0 +1,178 @@
+create table salesman_detalis(    Sid INT PRIMARY KEY,    name VARCHAR(50),    city VARCHAR(50),    commission DECIMAL(5,2));
+
+Table created.
+
+SQL> desc salesman_detalis;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ COMMISSION                                         NUMBER(5,2)
+
+SQL> insert into salesman_detalis values (1, 'John', 'London', 0.15);
+
+1 row created.
+
+SQL> insert into salesman_detalis values(2, 'Smith', 'New York', 0.12);
+
+1 row created.
+
+SQL> insert into salesman_detalis values(3, 'David', 'London', 0.10);
+
+1 row created.
+
+SQL> insert into salesman_detalis values(4, 'James', 'Paris', 0.13);
+
+1 row created.
+
+SQL> insert into salesman_detalis values (5, 'Robert', 'Mumbai', 0.11);
+
+1 row created.
+
+SQL> select *from salesman_detalis;
+
+       SID NAME                                                                 
+---------- --------------------------------------------------                   
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+         1 John                                                                 
+London                                                    .15                   
+                                                                                
+         2 Smith                                                                
+New York                                                  .12                   
+                                                                                
+         3 David                                                                
+London                                                     .1                   
+                                                                                
+
+       SID NAME                                                                 
+---------- --------------------------------------------------                   
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+         4 James                                                                
+Paris                                                     .13                   
+                                                                                
+         5 Robert                                                               
+Mumbai                                                    .11                   
+                                                                                
+
+SQL> create table customer_detalis C_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(Sid));
+create table customer_detalis C_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(Sid))
+                              *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL>  create table customer_detalis( C_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(Sid));
+ create table customer_detalis( C_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(Sid))
+                                                                                                                                                                                    *
+ERROR at line 1:
+ORA-00904: "SID": invalid identifier 
+
+
+SQL> DESC Salesman;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALESMAN_ID                               NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ COMMISSION                                         NUMBER(5,2)
+
+SQL> DESC Customer;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUST_ID                                   NOT NULL NUMBER(38)
+ CNAME                                              VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ GRADE                                              NUMBER(38)
+ SALESMAN_ID                                        NUMBER(38)
+
+SQL> SELECT Customer.cname AS Customer_Name,       Salesman.name AS Salesman_NameFROM CustomerINNER JOIN SalesmanON Customer.salesman_id = Salesman.Sid;
+SELECT Customer.cname AS Customer_Name,       Salesman.name AS Salesman_NameFROM CustomerINNER JOIN SalesmanON Customer.salesman_id = Salesman.Sid
+                                                                                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select *from customer;
+
+   CUST_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+       201 Rahul                                                                
+London                                                    300         102       
+                                                                                
+       202 Amit                                                                 
+Paris                                                     250         103       
+                                                                                
+       203 Priya                                                                
+New York                                                  150         101       
+                                                                                
+
+   CUST_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+       204 Neha                                                                 
+London                                                    220         104       
+                                                                                
+       205 Riya                                                                 
+Mumbai                                                    100         105       
+                                                                                
+       206 Karan                                                                
+Paris                                                     350         103       
+                                                                                
+
+6 rows selected.
+
+SQL> select *from salesman;
+
+SALESMAN_ID NAME                                                                
+----------- --------------------------------------------------                  
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+        101 John                                                                
+New York                                                  .15                   
+                                                                                
+        102 Alice                                                               
+London                                                    .13                   
+                                                                                
+        103 Bob                                                                 
+Paris                                                     .12                   
+                                                                                
+
+SALESMAN_ID NAME                                                                
+----------- --------------------------------------------------                  
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+        104 David                                                               
+London                                                    .14                   
+                                                                                
+        105 Smith                                                               
+New York                                                   .1                   
+                                                                                
+
+SQL> SELECT name AS Person_NameFROM SalesmanWHERE city = 'London';
+SELECT name AS Person_NameFROM SalesmanWHERE city = 'London'
+                               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT cname AS Person_NameFROM CustomerWHERE city = 'London';
+SELECT cname AS Person_NameFROM CustomerWHERE city = 'London'
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT cname AS Person_NameFROM customer_detalis where city='london';
+SELECT cname AS Person_NameFROM customer_detalis where city='london'
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> 

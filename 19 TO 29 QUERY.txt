@@ -1,0 +1,233 @@
+19 question=>
+SQL=>DECLARE
+    n NUMBER := &n;
+BEGIN
+    IF MOD(n, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(n || ' is Even');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(n || ' is Odd');
+    END IF;
+END;
+/
+OUTPUT=>ENTER VALUE FOR N : 7
+7 IS ODD
+
+
+20 QUESTION=>
+SQL=>
+SET SERVEROUTPUT ON;
+
+DECLARE
+    n NUMBER := &n;
+    i NUMBER;
+BEGIN
+    FOR i IN 1..10 LOOP
+        DBMS_OUTPUT.PUT_LINE(n || ' x ' || i || ' = ' || (n * i));
+    END LOOP;
+END;
+/
+
+OUTPUT=>ENTER VALUE FOR N : 5
+5 x 1 = 5
+5 x 2 = 10
+5 x 3 = 15
+5 x 4 = 20
+5 x 5 = 25
+5 x 6 = 30
+5 x 7 = 35
+5 x 8 = 40
+5 x 9 = 45
+5 x 10 = 50
+
+
+21 QUESTION =>
+SQL=>SET SERVEROUTPUT ON;
+
+DECLARE
+    yr NUMBER := &yr;
+BEGIN
+    IF MOD(yr, 400) = 0 OR (MOD(yr, 4) = 0 AND MOD(yr, 100) != 0) THEN
+        DBMS_OUTPUT.PUT_LINE(yr || ' is a Leap Year');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(yr || ' is not a Leap Year');
+    END IF;
+END;
+/
+OUTPUT=>ENTER YEAR : 2024
+2024 IS LEEP YEAR
+
+22 QUESTION=>
+SQL=>SET SERVEROUTPUT ON;
+
+DECLARE
+    i NUMBER := 1;
+BEGIN
+    WHILE i <= 5 LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+        i := i + 1;
+    END LOOP;
+END;
+/
+OUTPUT=>
+1
+2
+3
+4
+5
+
+23 QUESTION=> 
+SQL=>SET SERVEROUTPUT ON;
+
+DECLARE
+    i NUMBER := 1;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+        i := i + 1;
+
+        EXIT WHEN i > 10;
+    END LOOP;
+END;
+/
+OUTPUT=>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+24 QUESTION=>
+SQL=>SET SERVEROUTPUT ON;
+
+BEGIN
+    FOR i IN 1..10 LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+END;
+/
+OUTPUT=>
+1,2,3,4,5,6,7,8,9,10
+
+25 QUESTION=>
+SQL=>DECLARE
+    rollno       NUMBER;
+    name         VARCHAR2(50);
+    mark1        NUMBER;
+    mark2        NUMBER;
+    mark3        NUMBER;
+    total        NUMBER;
+    percentage   NUMBER;
+    class        VARCHAR2(20);
+BEGIN
+    rollno := &rollno;
+    name := '&name';
+    mark1 := &mark1;
+    mark2 := &mark2;
+    mark3 := &mark3;
+
+    total := mark1 + mark2 + mark3;
+    percentage := total / 3;
+
+    IF percentage >= 60 THEN
+        class := 'First Class';
+    ELSIF percentage >= 50 THEN
+        class := 'Second Class';
+    ELSIF percentage >= 40 THEN
+        class := 'Third Class';
+    ELSE
+        class := 'Fail';
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE('Roll No    : ' || rollno);
+    DBMS_OUTPUT.PUT_LINE('Name       : ' || name);
+    DBMS_OUTPUT.PUT_LINE('Total      : ' || total);
+    DBMS_OUTPUT.PUT_LINE('Percentage : ' || percentage || '%');
+    DBMS_OUTPUT.PUT_LINE('Class      : ' || class);
+END;
+/
+OUTPTU=>
+Enter value for rollno: 1
+old  11:     rollno := &rollno;
+new  11:     rollno := 1;
+Enter value for name: raj
+old  12:     name := '&name';
+new  12:     name := 'raj';
+Enter value for mark1: 98
+old  13:     mark1 := &mark1;
+new  13:     mark1 := 98;
+Enter value for mark2: 99
+old  14:     mark2 := &mark2;
+new  14:     mark2 := 99;
+Enter value for mark3: 98
+old  15:     mark3 := &mark3;
+new  15:     mark3 := 98;
+
+26 QUESTION=>
+SQL=>DECLARE
+    n NUMBER := 12;
+BEGIN
+    WHILE n <= 100 LOOP
+        DBMS_OUTPUT.PUT_LINE(n);
+        n := n + 20;
+    END LOOP;
+END;
+/
+OUTPUT=>
+12,32,52,72,92
+
+27 QUESTION=>
+SQL=>DECLARE
+    n NUMBER;
+    i NUMBER := 1;
+    total NUMBER := 0;
+BEGIN
+    n := &n;
+
+    WHILE i <= n LOOP
+        total := total + i;
+        i := i + 3;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Sum = ' || total);
+END;
+/
+OUTPUT=>
+Enter value for n: 4
+old   6:     n := &n;
+new   6:     n := 4;
+
+28 QUESTION=>
+SQL=>DECLARE
+    n NUMBER;
+    a NUMBER := 0;
+    b NUMBER := 1;
+    c NUMBER;
+BEGIN
+    n := &n;
+
+    DBMS_OUTPUT.PUT(a || ' ' || b || ' ');
+
+    c := a + b;
+
+    WHILE c <= n LOOP
+        DBMS_OUTPUT.PUT(c || ' ');
+        a := b;
+        b := c;
+        c := a + b;
+    END LOOP;
+
+    DBMS_OUTPUT.NEW_LINE;
+END;
+/
+OUTPUT=>
+Enter value for n: 5
+old   7:     n := &n;
+new   7:     n := 5;
+
+29 QUESTION=>
+SQL=>

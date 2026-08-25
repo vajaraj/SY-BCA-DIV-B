@@ -1,0 +1,237 @@
+CREATE TABLE Company_master (    Com_id NUMBER PRIMARY KEY,    com_name VARCHAR2(50));
+
+Table created.
+
+SQL> desc company_master;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COM_ID                                    NOT NULL NUMBER
+ COM_NAME                                           VARCHAR2(50)
+
+SQL> INSERT INTO Company_master VALUES (1, 'Samsung');
+
+1 row created.
+
+SQL>  INSERT INTO Company_master VALUES (2, 'Apple');
+
+1 row created.
+
+SQL> INSERT INTO Company_master VALUES (3, 'Dell');
+
+1 row created.
+
+SQL> INSERT INTO Company_master VALUES (4, 'HP');
+
+1 row created.
+
+SQL> select *from company_master;
+
+    COM_ID COM_NAME                                                             
+---------- --------------------------------------------------                   
+         1 Samsung                                                              
+         2 Apple                                                                
+         3 Dell                                                                 
+         4 HP                                                                   
+
+SQL> drop table item_master;
+
+Table dropped.
+
+SQL> CREATE TABLE Item_Master (    Item_id NUMBER PRIMARY KEY,    Item_name VARCHAR2(50),    price NUMBER(10,2),    company_code NUMBER,    FOREIGN KEY (company_code) REFERENCES Company_master(Com_id));
+
+Table created.
+
+SQL> desc iteam_master;
+ERROR:
+ORA-04043: object iteam_master does not exist 
+
+
+SQL> desc item_master;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEM_ID                                   NOT NULL NUMBER
+ ITEM_NAME                                          VARCHAR2(50)
+ PRICE                                              NUMBER(10,2)
+ COMPANY_CODE                                       NUMBER
+
+SQL> INSERT INTO Item_Master VALUES (101, 'Keyboard', 250, 1);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master VALUES (102, 'Mouse', 150, 1);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master VALUES (103, 'Monitor', 500, 2);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master VALUES (104, 'Laptop', 800, 2);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master VALUES (105, 'Printer', 400, 3);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master VALUES (106, 'Scanner', 300, 3);
+
+1 row created.
+
+SQL> INSERT INTO Item_Master VALUES (107, 'Hard Disk', 450, 4);
+
+1 row created.
+
+SQL> select *from item_master;
+
+   ITEM_ID ITEM_NAME                                               PRICE        
+---------- -------------------------------------------------- ----------        
+COMPANY_CODE                                                                    
+------------                                                                    
+       101 Keyboard                                                  250        
+           1                                                                    
+                                                                                
+       102 Mouse                                                     150        
+           1                                                                    
+                                                                                
+       103 Monitor                                                   500        
+           2                                                                    
+                                                                                
+
+   ITEM_ID ITEM_NAME                                               PRICE        
+---------- -------------------------------------------------- ----------        
+COMPANY_CODE                                                                    
+------------                                                                    
+       104 Laptop                                                    800        
+           2                                                                    
+                                                                                
+       105 Printer                                                   400        
+           3                                                                    
+                                                                                
+       106 Scanner                                                   300        
+           3                                                                    
+                                                                                
+
+   ITEM_ID ITEM_NAME                                               PRICE        
+---------- -------------------------------------------------- ----------        
+COMPANY_CODE                                                                    
+------------                                                                    
+       107 Hard Disk                                                 450        
+           4                                                                    
+                                                                                
+
+7 rows selected.
+
+SQL> SELECT i.*, c.com_name
+  2  FROM Item_Master i
+  3  JOIN Company_master c
+  4  ON i.company_code = c.Com_id;
+
+   ITEM_ID ITEM_NAME                                               PRICE        
+---------- -------------------------------------------------- ----------        
+COMPANY_CODE COM_NAME                                                           
+------------ --------------------------------------------------                 
+       101 Keyboard                                                  250        
+           1 Samsung                                                            
+                                                                                
+       102 Mouse                                                     150        
+           1 Samsung                                                            
+                                                                                
+       103 Monitor                                                   500        
+           2 Apple                                                              
+                                                                                
+
+   ITEM_ID ITEM_NAME                                               PRICE        
+---------- -------------------------------------------------- ----------        
+COMPANY_CODE COM_NAME                                                           
+------------ --------------------------------------------------                 
+       104 Laptop                                                    800        
+           2 Apple                                                              
+                                                                                
+       105 Printer                                                   400        
+           3 Dell                                                               
+                                                                                
+       106 Scanner                                                   300        
+           3 Dell                                                               
+                                                                                
+
+   ITEM_ID ITEM_NAME                                               PRICE        
+---------- -------------------------------------------------- ----------        
+COMPANY_CODE COM_NAME                                                           
+------------ --------------------------------------------------                 
+       107 Hard Disk                                                 450        
+           4 HP                                                                 
+                                                                                
+
+7 rows selected.
+
+SQL> SELECT i.Item_name, i.price, c.com_name
+  2  FROM Item_Master i
+  3  JOIN Company_master c
+  4  ON i.company_code = c.Com_id;
+
+ITEM_NAME                                               PRICE                   
+-------------------------------------------------- ----------                   
+COM_NAME                                                                        
+--------------------------------------------------                              
+Keyboard                                                  250                   
+Samsung                                                                         
+                                                                                
+Mouse                                                     150                   
+Samsung                                                                         
+                                                                                
+Monitor                                                   500                   
+Apple                                                                           
+                                                                                
+
+ITEM_NAME                                               PRICE                   
+-------------------------------------------------- ----------                   
+COM_NAME                                                                        
+--------------------------------------------------                              
+Laptop                                                    800                   
+Apple                                                                           
+                                                                                
+Printer                                                   400                   
+Dell                                                                            
+                                                                                
+Scanner                                                   300                   
+Dell                                                                            
+                                                                                
+
+ITEM_NAME                                               PRICE                   
+-------------------------------------------------- ----------                   
+COM_NAME                                                                        
+--------------------------------------------------                              
+Hard Disk                                                 450                   
+HP                                                                              
+                                                                                
+
+7 rows selected.
+
+SQL> SELECT c.com_name, AVG(i.price) AS average_price
+  2  FROM Company_master c
+  3  JOIN Item_Master i
+  4  ON c.Com_id = i.company_code
+  5  GROUP BY c.com_name;
+
+COM_NAME                                           AVERAGE_PRICE                
+-------------------------------------------------- -------------                
+Samsung                                                      200                
+Apple                                                        650                
+Dell                                                         350                
+HP                                                           450                
+
+SQL> SELECT c.com_name, AVG(i.price) AS average_price
+  2  FROM Company_master c
+  3  JOIN Item_Master i
+  4  ON c.Com_id = i.company_code
+  5  GROUP BY c.com_name
+  6  HAVING AVG(i.price) >= 350;
+
+COM_NAME                                           AVERAGE_PRICE                
+-------------------------------------------------- -------------                
+Apple                                                        650                
+Dell                                                         350                
+HP                                                           450                
+
+SQL> 

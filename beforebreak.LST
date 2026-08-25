@@ -1,0 +1,28 @@
+select e.name,d.deptno,d.dname from e LEFT OUTER JOIN dept d ON e.deptno=d.empno;
+select e.name,d.deptno,d.dname from e LEFT OUTER JOIN dept d ON e.deptno=d.empno
+                                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL> 
+SQL> SELECT e.name, d.deptno, d.dname
+  2  FROM e
+  3  LEFT OUTER JOIN dept d ON e.deptno = d.deptno;
+FROM e
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT e.name, d.deptno, d.dname
+  2  FROM e
+  3  LEFT OUTER JOIN dept d ON e.deptno = d.empno;
+FROM e
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> 

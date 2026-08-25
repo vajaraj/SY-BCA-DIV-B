@@ -1,0 +1,792 @@
+question=>3
+SQL> CREATE TABLE Empp1 (
+  2      Emp_no INT PRIMARY KEY,
+  3      Emp_name VARCHAR(50),
+  4      Company VARCHAR(50),
+  5      Salary DECIMAL(10,2),
+  6      City VARCHAR(50)
+  7  );
+
+Table created.
+
+SQL> INSERT INTO Empp1 VALUES (102, 'Neha', 'TCS', 60000, 'Delhi');
+
+1 row created.
+
+SQL> INSERT INTO Empp1 VALUES (103, 'Rahul', 'InfoSystem Ltd.', 55000, 'Pune');
+
+1 row created.
+
+SQL> INSERT INTO Empp1 VALUES (104, 'Priya', 'Wipro', 48000, 'Mumbai');
+
+1 row created.
+
+SQL> INSERT INTO Empp1 VALUES (105, 'Karan', 'Infosys', 70000, 'Bangalore');
+
+1 row created.
+
+=>i
+SQL> SELECT Emp_name
+  2  FROM Empp1
+  3  WHERE Company = 'InfoSystem Ltd.';
+
+EMP_NAME
+--------------------------------------------------
+Amit
+Rahul
+
+=>ii
+SQL> SELECT *
+  2  FROM Empp1
+  3  WHERE Emp_no NOT IN (
+  4      SELECT Emp_no
+  5      FROM Empp1
+  6      WHERE Company = 'InfoSystem Ltd.'
+  7  );
+
+    EMP_NO EMP_NAME
+---------- --------------------------------------------------
+COMPANY                                                SALARY
+-------------------------------------------------- ----------
+CITY
+--------------------------------------------------
+       102 Neha
+TCS                                                     60000
+Delhi
+
+       105 Karan
+Infosys                                                 70000
+Bangalore
+
+    EMP_NO EMP_NAME
+---------- --------------------------------------------------
+COMPANY                                                SALARY
+-------------------------------------------------- ----------
+CITY
+--------------------------------------------------
+
+       104 Priya
+Wipro                                                   48000
+Mumbai
+
+=>iii
+
+SQL> SELECT *
+  2  FROM Empp1
+  3  WHERE City = 'Mumbai';
+
+    EMP_NO EMP_NAME
+---------- --------------------------------------------------
+COMPANY                                                SALARY
+-------------------------------------------------- ----------
+CITY
+--------------------------------------------------
+       101 Amit
+InfoSystem Ltd.                                         50000
+Mumbai
+
+       104 Priya
+Wipro                                                   48000
+Mumbai
+
+    EMP_NO EMP_NAME
+---------- --------------------------------------------------
+COMPANY                                                SALARY
+-------------------------------------------------- ----------
+CITY
+--------------------------------------------------
+
+question4=>
+SQL> CREATE TABLE Item_Master1 (
+  2      Item_id NUMBER(5) PRIMARY KEY,
+  3      Item_name VARCHAR2(30),
+  4      Price NUMBER(8,2),
+  5      Company_code NUMBER(3)
+  6  );
+
+Table created.
+
+SQL> INSERT INTO Item_Master1 VALUES (101, 'Keyboard', 450,
+
+1 row created.
+
+SQL> INSERT INTO Item_Master1 VALUES (102, 'Mouse', 250, 16
+
+1 row created.
+
+SQL> INSERT INTO Item_Master1 VALUES (103, 'Monitor', 8500,
+
+1 row created.
+
+SQL> INSERT INTO Item_Master1 VALUES (104, 'Pendrive', 550,
+
+1 row created.
+
+SQL> INSERT INTO Item_Master1 VALUES (105, 'Speaker', 600, 
+
+1 row created.
+
+SQL> INSERT INTO Item_Master1 VALUES (106, 'Webcam', 400, 1
+
+1 row created.
+
+SQL> INSERT INTO Item_Master1 VALUES (107, 'Printer', 6500,
+
+1 row created.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT *
+  2  FROM Item_Master1
+  3  WHERE Price BETWEEN 200 AND 600;
+
+   ITEM_ID ITEM_NAME                           PRICE COMPAN
+---------- ------------------------------ ---------- ------
+       101 Keyboard                              450       
+       102 Mouse                                 250       
+       104 Pendrive                              550       
+       105 Speaker                               600       
+       106 Webcam                                400       
+
+SQL> SELECT AVG(Price) AS Average_Price
+  2  FROM Item_Master1
+  3  WHERE Company_code = 16;
+
+AVERAGE_PRICE
+-------------
+        412.5
+
+SQL> SELECT Item_name, Price
+  2  FROM Item_Master1
+  3  WHERE Price = (
+  4      SELECT MIN(Price)
+  5      FROM Item_Master
+  6  );
+
+no rows selected
+
+SQL> SELECT Item_name, Price
+  2  FROM Item_Master1
+  3  WHERE Price = (
+  4      SELECT MIN(Price)
+  5      FROM Item_Master1
+  6  );
+
+ITEM_NAME                           PRICE
+------------------------------ ----------
+Mouse                                 250
+
+question5=>
+
+SQL> CREATE TABLE Client (
+  2      C_no NUMBER(5) PRIMARY KEY,
+  3      C_name VARCHAR2(30),
+  4      City VARCHAR2(20),
+  5      State VARCHAR2(20),
+  6      Post VARCHAR2(20),
+  7      Salary NUMBER(8)
+  8  );
+
+Table created.
+
+SQL> INSERT INTO Client VALUES (101, 'Amit', 'Surat', 'Gujarat', 'Manager', 9000)
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO Client VALUES (102, 'Bhavesh', 'Ahmedabad', 'Gujarat', 'Clerk', 
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO Client VALUES (103, 'Chirag', 'Mumbai', 'Maharashtra', 'Develope
+
+1 row created.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT *
+  2  FROM Client
+  3  WHERE Post = 'Manager';
+
+      C_NO C_NAME                         CITY
+---------- ------------------------------ --------------------
+STATE                POST                     SALARY
+-------------------- -------------------- ----------
+       101 Amit                           Surat
+Gujarat              Manager                    9000
+
+
+SQL> SELECT *
+  2  FROM Client
+  3  WHERE State = 'Gujarat'
+  4  AND Salary < 10000;
+
+      C_NO C_NAME                         CITY
+---------- ------------------------------ --------------------
+STATE                POST                     SALARY
+-------------------- -------------------- ----------
+       101 Amit                           Surat
+Gujarat              Manager                    9000
+
+       102 Bhavesh                        Ahmedabad
+Gujarat              Clerk                      8000
+
+
+SQL> SELECT *
+  2  FROM Client
+  3  WHERE Post IN ('Clerk','Manager');
+
+      C_NO C_NAME                         CITY
+---------- ------------------------------ --------------------
+STATE                POST                     SALARY
+-------------------- -------------------- ----------
+       101 Amit                           Surat
+Gujarat              Manager                    9000
+
+       102 Bhavesh                        Ahmedabad
+Gujarat              Clerk                      8000
+
+
+SQL> SELECT *
+  2  FROM Client
+  3  WHERE Post = 'Developer';
+
+      C_NO C_NAME                         CITY
+---------- ------------------------------ --------------------
+STATE                POST                     SALARY
+-------------------- -------------------- ----------
+       103 Chirag                         Mumbai
+Maharashtra          Developer                 25000
+
+
+SQL> SELECT *
+  2  FROM Client
+  3  WHERE City = 'Surat'
+  4  AND C_name LIKE 'A%';
+
+      C_NO C_NAME                         CITY
+---------- ------------------------------ --------------------
+STATE                POST                     SALARY
+-------------------- -------------------- ----------
+       101 Amit                           Surat
+Gujarat              Manager                    9000
+
+
+question6=>
+CREATE TABLE Student (
+    Rollno NUMBER(5) PRIMARY KEY,
+    Name VARCHAR2(30),
+    City VARCHAR2(20),
+    Address VARCHAR2(50),
+    DOB DATE,
+    Age NUMBER(2),
+    Class VARCHAR2(10),
+    MobileNo VARCHAR2(10)
+);
+
+INSERT INTO Student
+VALUES (10, 'Amit', 'Rajkot', 'Kalawad Road',
+TO_DATE('15-05-2007','DD-MM-YYYY'),
+18, 'Sem-2', '9876543210');
+
+INSERT INTO Student
+VALUES (11, 'Bhavesh', 'Surat', 'Adajan',
+TO_DATE('20-08-2006','DD-MM-YYYY'),
+19, 'Sem-2', '9876501234');
+
+INSERT INTO Student
+VALUES (12, 'Chirag', 'Rajkot', 'University Road',
+TO_DATE('10-01-2003','DD-MM-YYYY'),
+22, 'Sem-4', '9876512345');
+
+COMMIT;
+
+| RollNo | Name    | City   | Address         | DOB         | Age | Class | MobileNo   |
+| -----: | ------- | ------ | --------------- | ----------- | --: | ----- | ---------- |
+|     10 | Amit    | Rajkot | Kalawad Road    | 15-May-2007 |  18 | Sem-2 | 9876543210 |
+|     11 | Bhavesh | Surat  | Adajan          | 20-Aug-2006 |  19 | Sem-2 | 9876501234 |
+|     12 | Chirag  | Rajkot | University Road | 10-Jan-2003 |  22 | Sem-4 | 9876512345 |
+
+ii. Display students whose age is less than or equal to 18.
+Query
+SELECT *
+FROM Student
+WHERE Age <= 18;
+| RollNo | Name | Age |
+| -----: | ---- | --: |
+|     10 | Amit |  18 |
+
+
+iii. Display all students' names in Ascending order and Age in Descending order.
+Query
+SELECT Name, Age
+FROM Student
+ORDER BY Name ASC, Age DESC;
+
+| Name    | Age |
+| ------- | --: |
+| Amit    |  18 |
+| Bhavesh |  19 |
+| Chirag  |  22 |
+iv. Update the city to "Jamnagar" where city is "Rajkot".
+Query
+2 rows updated.
+| RollNo | Name    | City     |
+| -----: | ------- | -------- |
+|     10 | Amit    | Jamnagar |
+|     11 | Bhavesh | Surat    |
+|     12 | Chirag  | Jamnagar |
+
+
+v. Update the class to Sem-3 for RollNo 10.
+Query
+UPDATE Student
+SET Class = 'Sem-3'
+WHERE Rollno = 10;
+
+1 row updated.
+| RollNo | Name | Class |
+| -----: | ---- | ----- |
+|     10 | Amit | Sem-3 |
+
+vi. Delete students whose age is greater than 20.
+Query
+DELETE FROM Student
+WHERE Age > 20;
+1 row deleted.
+| RollNo | Name    | Age |
+| -----: | ------- | --: |
+|     10 | Amit    |  18 |
+|     11 | Bhavesh |  19 |
+
+vii. Delete students whose city is Jamnagar and class is not Sem-3.
+Query
+DELETE FROM Student
+WHERE City = 'Jamnagar'
+AND Class <> 'Sem-3';
+0 rows deleted.
+| RollNo | Name    | City     | Class | Age |
+| -----: | ------- | -------- | ----- | --: |
+|     10 | Amit    | Jamnagar | Sem-3 |  18 |
+|     11 | Bhavesh | Surat    | Sem-2 |  19 |
+
+ question7=>
+ CREATE TABLE Salesman (
+    Sid NUMBER(5) PRIMARY KEY,
+    Sname VARCHAR2(30),
+    City VARCHAR2(20),
+    Sal NUMBER(8),
+    Comm NUMBER(8)
+);
+ 
+ INSERT INTO Salesman
+VALUES (8, 'Suresh', 'Mumbai', 3000, 500);
+
+INSERT INTO Salesman
+VALUES (9, 'Ramesh', 'Delhi', 3500, 700);
+
+INSERT INTO Salesman
+VALUES (10, 'Sunil', 'Bombay', 4000, 900);
+
+COMMIT;
+| Sid | Sname  | City   |  Sal | Comm |
+| --: | ------ | ------ | ---: | ---: |
+|   8 | Suresh | Mumbai | 3000 |  500 |
+|   9 | Ramesh | Delhi  | 3500 |  700 |
+|  10 | Sunil  | Bombay | 4000 |  900 |
+
+
+(a) List out all the names of salesman who are situated in Mumbai.
+Query
+SELECT Sname
+FROM Salesman
+WHERE City = 'Mumbai';
+| Sname  |
+| ------ |
+| Suresh |
+
+(b) Find out the maximum commission taken by salesman.
+Query
+SELECT MAX(Comm) AS Maximum_Commission
+FROM Salesman;
+| Maximum_Commission |
+| -----------------: |
+|                900 |
+
+
+(c) List out the name of salesman who has a salary equal to 3000.
+Query
+SELECT Sname
+FROM Salesman
+WHERE Sal = 3000;
+| Sname  |
+| ------ |
+| Suresh |
+
+(d) Change the city of salesman to Puna whose id is 8.
+Query
+UPDATE Salesman
+SET City = 'Puna'
+WHERE Sid = 8;
+1 row updated.
+| Sid | Sname  | City   |
+| --: | ------ | ------ |
+|   8 | Suresh | Puna   |
+|   9 | Ramesh | Delhi  |
+|  10 | Sunil  | Bombay |
+
+(e) Delete the entire salesman whose salary is equal to 3500.
+Query
+DELETE FROM Salesman
+WHERE Sal = 3500;
+1 row deleted.
+| Sid | Sname  | City   |  Sal |
+| --: | ------ | ------ | ---: |
+|   8 | Suresh | Puna   | 3000 |
+|  10 | Sunil  | Bombay | 4000 |
+
+(f) Find out all salesman whose names start with 'S'.
+Query
+SELECT *
+FROM Salesman
+WHERE Sname LIKE 'S%';
+| Sid | Sname  | City   |  Sal | Comm |
+| --: | ------ | ------ | ---: | ---: |
+|   8 | Suresh | Puna   | 3000 |  500 |
+|  10 | Sunil  | Bombay | 4000 |  900 |
+
+(g) Display all salesman who are situated in Bombay, Delhi or Puna.
+Query
+SELECT *
+FROM Salesman
+WHERE City IN ('Bombay', 'Delhi', 'Puna');
+| Sid | Sname  | City   |  Sal | Comm |
+| --: | ------ | ------ | ---: | ---: |
+|   8 | Suresh | Puna   | 3000 |  500 |
+|  10 | Sunil  | Bombay | 4000 |  900 |
+
+
+question8=>
+CREATE TABLE Production (
+    P_no NUMBER(5) PRIMARY KEY,
+    Description VARCHAR2(30),
+    Profit NUMBER(8,2),
+    Unit NUMBER(5),
+    Qty NUMBER(5),
+    S_price NUMBER(8,2),
+    C_price NUMBER(8,2)
+);
+INSERT INTO Production
+VALUES (101, 'Pen', 100, 10, 200, 600, 450);
+
+INSERT INTO Production
+VALUES (102, 'Book', 150, 20, 100, 700, 550);
+
+INSERT INTO Production
+VALUES (103, 'Pencil', 50, 15, 150, 400, 350);
+
+COMMIT;
+| P_no | Description | Profit | Unit | Qty | S_price | C_price |
+| ---: | ----------- | -----: | ---: | --: | ------: | ------: |
+|  101 | Pen         |    100 |   10 | 200 |     600 |     450 |
+|  102 | Book        |    150 |   20 | 100 |     700 |     550 |
+|  103 | Pencil      |     50 |   15 | 150 |     400 |     350 |
+
+I. List the various products available from the Production table.
+Query
+SELECT Description
+FROM Production;
+| Description |
+| ----------- |
+| Pen         |
+| Book        |
+| Pencil      |
+
+II. Change the cost price of Pen to Rs. 500.
+Query
+UPDATE Production
+SET C_price = 500
+WHERE Description = 'Pen';
+1 row updated.
+| P_no | Description | C_price |
+| ---: | ----------- | ------: |
+|  101 | Pen         |     500 |
+
+III. Delete all the products where the quantity is equal to 100.
+Query
+DELETE FROM Production
+WHERE Qty = 100;
+| P_no | Description | Qty |
+| ---: | ----------- | --: |
+|  101 | Pen         | 200 |
+|  103 | Pencil      | 150 |
+
+IV. List out products whose selling price is greater than 500 and less than or equal to 750.
+Query
+SELECT *
+FROM Production
+WHERE S_price > 500
+AND S_price <= 750;
+| P_no | Description | S_price |
+| ---: | ----------- | ------: |
+|  101 | Pen         |     600 |
+
+question9=>
+1. Create Department Table
+CREATE TABLE Department (
+    Deptno NUMBER(2) PRIMARY KEY,
+    Dname VARCHAR2(20) NOT NULL,
+    Location VARCHAR2(20)
+);
+2. Insert Records into Department
+INSERT INTO Department VALUES (10, 'Sales', 'Rajkot');
+INSERT INTO Department VALUES (20, 'HR', 'Surat');
+INSERT INTO Department VALUES (30, 'IT', 'Ahmedabad');
+
+COMMIT;
+| Deptno | Dname | Location  |
+| -----: | ----- | --------- |
+|     10 | Sales | Rajkot    |
+|     20 | HR    | Surat     |
+|     30 | IT    | Ahmedabad |
+3. Create Employee Table
+CREATE TABLE Emp (
+    Empno NUMBER(5) PRIMARY KEY,
+    Ename VARCHAR2(30) NOT NULL,
+    Job VARCHAR2(20),
+    Mgrno NUMBER(5) NOT NULL,
+    Hiredate DATE,
+    Salary NUMBER(8),
+    Comm NUMBER(8),
+    Deptno NUMBER(2),
+    CONSTRAINT fk_dept
+    FOREIGN KEY (Deptno)
+    REFERENCES Department(Deptno)
+);
+4. Insert 3 Employee Records
+INSERT INTO Emp
+VALUES (101, 'Amar', 'Clerk', 201,
+TO_DATE('10-01-2022','DD-MM-YYYY'),
+20000, 1000, 10);
+
+INSERT INTO Emp
+VALUES (102, 'Ramesh', 'Manager', 202,
+TO_DATE('15-03-2021','DD-MM-YYYY'),
+30000, 2000, 20);
+
+INSERT INTO Emp
+VALUES (103, 'Karan', 'Manager', 202,
+TO_DATE('20-06-2020','DD-MM-YYYY'),
+40000, 3000, 30);
+
+COMMIT;
+| Empno | Ename  | Job     | Salary | Deptno |
+| ----: | ------ | ------- | -----: | -----: |
+|   101 | Amar   | Clerk   |  20000 |     10 |
+|   102 | Ramesh | Manager |  30000 |     20 |
+|   103 | Karan  | Manager |  40000 |     30 |
+
+
+i. Display all employees whose name starts with 'S' or 'R'.
+Query
+SELECT *
+FROM Emp
+WHERE Ename LIKE 'S%'
+   OR Ename LIKE 'R%';
+| Empno | Ename  | Job     | Salary |
+| ----: | ------ | ------- | -----: |
+|   102 | Ramesh | Manager |  30000 |
+
+ii. Display job titles (without repetition) present in the company.
+Query
+SELECT DISTINCT Job
+FROM Emp;
+| Job     |
+| ------- |
+| Clerk   |
+| Manager |
+
+iii. List all employees having salary more than 'Amar' and less than 'Karan'.
+Query
+SELECT *
+FROM Emp
+WHERE Salary >
+      (SELECT Salary
+       FROM Emp
+       WHERE Ename = 'Amar')
+AND Salary <
+      (SELECT Salary
+       FROM Emp
+       WHERE Ename = 'Karan');
+| Empno | Ename  | Job     | Salary |
+| ----: | ------ | ------- | -----: |
+|   102 | Ramesh | Manager |  30000 |
+
+
+question10=>
+1. Create Branch Table
+CREATE TABLE Branch (
+    Bname VARCHAR2(20) PRIMARY KEY,
+    City VARCHAR2(20)
+);
+2. Insert Records into Branch
+INSERT INTO Branch VALUES ('SBI', 'Nagpur');
+INSERT INTO Branch VALUES ('BOB', 'Mumbai');
+INSERT INTO Branch VALUES ('HDFC', 'Surat');
+
+COMMIT;
+| Bname | City   |
+| ----- | ------ |
+| SBI   | Nagpur |
+| BOB   | Mumbai |
+| HDFC  | Surat  |
+
+3. Create Customer Table
+CREATE TABLE Customer (
+    Cname VARCHAR2(30) PRIMARY KEY,
+    City VARCHAR2(20)
+);
+4. Insert Records into Customer
+INSERT INTO Customer VALUES ('Anil', 'Nagpur');
+INSERT INTO Customer VALUES ('Ravi', 'Mumbai');
+INSERT INTO Customer VALUES ('Karan', 'Surat');
+
+COMMIT;
+| Cname | City   |
+| ----- | ------ |
+| Anil  | Nagpur |
+| Ravi  | Mumbai |
+| Karan | Surat  |
+
+5. Create Deposit Table
+CREATE TABLE Deposit (
+    Ac_no NUMBER(5) PRIMARY KEY,
+    Cname VARCHAR2(30),
+    Bname VARCHAR2(20),
+    Amount NUMBER(8),
+    Adate DATE,
+    FOREIGN KEY (Cname) REFERENCES Customer(Cname),
+    FOREIGN KEY (Bname) REFERENCES Branch(Bname)
+);
+6. Insert Records into Deposit
+INSERT INTO Deposit
+VALUES (101, 'Anil', 'SBI', 5000,
+TO_DATE('10-01-2025','DD-MM-YYYY'));
+
+INSERT INTO Deposit
+VALUES (102, 'Ravi', 'BOB', 1500,
+TO_DATE('15-02-2025','DD-MM-YYYY'));
+
+INSERT INTO Deposit
+VALUES (103, 'Karan', 'HDFC', 800,
+TO_DATE('20-03-2025','DD-MM-YYYY'));
+
+COMMIT;
+| Ac_no | Cname | Bname | Amount |
+| ----: | ----- | ----- | -----: |
+|   101 | Anil  | SBI   |   5000 |
+|   102 | Ravi  | BOB   |   1500 |
+|   103 | Karan | HDFC  |    800 |
+
+7. Create Borrow Table
+CREATE TABLE Borrow (
+    Loanno NUMBER(5) PRIMARY KEY,
+    Cname VARCHAR2(30),
+    Bname VARCHAR2(20),
+    Amount NUMBER(8),
+    FOREIGN KEY (Cname) REFERENCES Customer(Cname),
+    FOREIGN KEY (Bname) REFERENCES Branch(Bname)
+);
+8. Insert Records into Borrow
+INSERT INTO Borrow VALUES (201, 'Anil', 'SBI', 3000);
+INSERT INTO Borrow VALUES (202, 'Ravi', 'BOB', 2500);
+INSERT INTO Borrow VALUES (203, 'Karan', 'HDFC', 1500);
+
+COMMIT;
+| Loanno | Cname | Bname | Amount |
+| -----: | ----- | ----- | -----: |
+|    201 | Anil  | SBI   |   3000 |
+|    202 | Ravi  | BOB   |   2500 |
+|    203 | Karan | HDFC  |   1500 |
+
+i. Give the name of customers living in Mumbai and Branch city Nagpur.
+Query
+SELECT C.Cname
+FROM Customer C, Deposit D, Branch B
+WHERE C.Cname = D.Cname
+AND D.Bname = B.Bname
+AND C.City = 'Mumbai'
+AND B.City = 'Nagpur';
+no rows selected
+
+ii. Give the name of customers having the same living city as their Branch city.
+Query
+SELECT C.Cname
+FROM Customer C, Deposit D, Branch B
+WHERE C.Cname = D.Cname
+AND D.Bname = B.Bname
+AND C.City = B.City;
+| Cname |
+| ----- |
+| Anil  |
+| Ravi  |
+| Karan |
+
+iii. Give the name of customers who are borrowers as well as depositors and having living city Nagpur.
+Query
+SELECT C.Cname
+FROM Customer C, Deposit D, Borrow BR
+WHERE C.Cname = D.Cname
+AND C.Cname = BR.Cname
+AND C.City = 'Nagpur';
+| Cname |
+| ----- |
+| Anil  |
+
+
+iv. List name of borrowers having deposit amount greater than 1000 and loan amount greater than 2000.
+Query
+SELECT D.Cname
+FROM Deposit D, Borrow B
+WHERE D.Cname = B.Cname
+AND D.Amount > 1000
+AND B.Amount > 2000;
+| Cname |
+| ----- |
+| Anil  |
+| Ravi  |
+
+v. Display loan no, loan amount, account no and deposit amount of customers living in city Nagpur.
+Query
+SELECT B.Loanno,
+       B.Amount AS Loan_Amount,
+       D.Ac_no,
+       D.Amount AS Deposit_Amount
+FROM Customer C, Borrow B, Deposit D
+WHERE C.Cname = B.Cname
+AND C.Cname = D.Cname
+AND C.City = 'Nagpur';
+| Loanno | Loan_Amount | Ac_no | Deposit_Amount |
+| -----: | ----------: | ----: | -------------: |
+|    201 |        3000 |   101 |           5000 |
+
+vi. Display branch city and living city of Anil.
+Query
+SELECT B.City AS Branch_City,
+       C.City AS Living_City
+FROM Customer C, Deposit D, Branch B
+WHERE C.Cname = D.Cname
+AND D.Bname = B.Bname
+AND C.Cname = 'Anil';
+| Branch_City | Living_City |
+| ----------- | ----------- |
+| Nagpur      | Nagpur      |
+	   
+

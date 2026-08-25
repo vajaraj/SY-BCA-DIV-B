@@ -1,0 +1,233 @@
+CREATE TABLE Order(    Ord_no INT PRIMARY KEY,    purch_amt DECIMAL(10,2),    ord_date DATE,    customer_id INT,    salesman_id INT);
+CREATE TABLE Order(    Ord_no INT PRIMARY KEY,    purch_amt DECIMAL(10,2),    ord_date DATE,    customer_id INT,    salesman_id INT)
+             *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> create table orderkamal(    Ord_no INT PRIMARY KEY,    purch_amt DECIMAL(10,2),    ord_date DATE,    customer_id INT,    salesman_id INT);
+
+Table created.
+
+SQL> desc orderkamal;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORD_NO                                    NOT NULL NUMBER(38)
+ PURCH_AMT                                          NUMBER(10,2)
+ ORD_DATE                                           DATE
+ CUSTOMER_ID                                        NUMBER(38)
+ SALESMAN_ID                                        NUMBER(38)
+
+SQL> INSERT INTO orderkamal values (70001, 150.50,date '2026-01-10', 3005, 5001);
+
+1 row created.
+
+SQL>  INSERT INTO orderkamal values (70002,270.65,date '2026-01-15', 3001, 5002);
+
+1 row created.
+
+SQL>  INSERT INTO orderkamal values (70003, 65.26, date '2026-02-05', 3002, 5001);
+
+1 row created.
+
+SQL> INSERT INTO orderkamal values(70004, 110.50,date '2026-02-12', 3009, 5003);
+
+1 row created.
+
+SQL> INSERT INTO orderkamal values(70005, 948.50,date '2026-02-20', 3005, 5002);
+
+1 row created.
+
+SQL> INSERT INTO orderkamal values(70006,2400.60,date '2026-03-01', 3007, 5001);
+
+1 row created.
+
+SQL> INSERT INTO orderkamal values
+  2  (70007, 5760.00,date '2026-03-10', 3002, 5004);
+
+1 row created.
+
+SQL> insert into orderkamal values(70008,1983.43,date '2026-03-15', 3004, 5003);
+
+1 row created.
+
+SQL> insert into orderkamal values(70009,2480.40,date ''2026-03-20', 3005, 5001);
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL>  insert into orderkamal values(70009,2480.40,date'2026-03-20', 3005, 5001);
+
+1 row created.
+
+SQL> insert into orderkamal values (70010, 250.45,date '2026-04-01', 3008, 5002);
+
+1 row created.
+
+SQL> select *from orderkamal;
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                         
+---------- ---------- --------- ----------- -----------                         
+     70001      150.5 10-JAN-26        3005        5001                         
+     70002     270.65 15-JAN-26        3001        5002                         
+     70003      65.26 05-FEB-26        3002        5001                         
+     70004      110.5 12-FEB-26        3009        5003                         
+     70005      948.5 20-FEB-26        3005        5002                         
+     70006     2400.6 01-MAR-26        3007        5001                         
+     70007       5760 10-MAR-26        3002        5004                         
+     70008    1983.43 15-MAR-26        3004        5003                         
+     70009     2480.4 20-MAR-26        3005        5001                         
+     70010     250.45 01-APR-26        3008        5002                         
+
+10 rows selected.
+
+SQL> SELECT ord_date, salesman_id, ord_no, purch_amt
+  2  FROM Orders;
+SELECT ord_date, salesman_id, ord_no, purch_amt
+                                      *
+ERROR at line 1:
+ORA-00904: "PURCH_AMT": invalid identifier 
+
+
+SQL> SELECT ord_date, salesman_id, ord_no, purch_amt from orderkamal;
+
+ORD_DATE  SALESMAN_ID     ORD_NO  PURCH_AMT                                     
+--------- ----------- ---------- ----------                                     
+10-JAN-26        5001      70001      150.5                                     
+15-JAN-26        5002      70002     270.65                                     
+05-FEB-26        5001      70003      65.26                                     
+12-FEB-26        5003      70004      110.5                                     
+20-FEB-26        5002      70005      948.5                                     
+01-MAR-26        5001      70006     2400.6                                     
+10-MAR-26        5004      70007       5760                                     
+15-MAR-26        5003      70008    1983.43                                     
+20-MAR-26        5001      70009     2480.4                                     
+01-APR-26        5002      70010     250.45                                     
+
+10 rows selected.
+
+SQL> SELECT DISTINCT salesman_id from orderkamal;
+
+SALESMAN_ID                                                                     
+-----------                                                                     
+       5003                                                                     
+       5001                                                                     
+       5004                                                                     
+       5002                                                                     
+
+SQL> SELECT ord_no, ord_date, purch_amt from orderkamal WHERE salesman_id = 5001;
+
+    ORD_NO ORD_DATE   PURCH_AMT                                                 
+---------- --------- ----------                                                 
+     70001 10-JAN-26      150.5                                                 
+     70003 05-FEB-26      65.26                                                 
+     70006 01-MAR-26     2400.6                                                 
+     70009 20-MAR-26     2480.4                                                 
+
+SQL> SELECT *from orderkamal ORDER BY ord_no ASC;
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                         
+---------- ---------- --------- ----------- -----------                         
+     70001      150.5 10-JAN-26        3005        5001                         
+     70002     270.65 15-JAN-26        3001        5002                         
+     70003      65.26 05-FEB-26        3002        5001                         
+     70004      110.5 12-FEB-26        3009        5003                         
+     70005      948.5 20-FEB-26        3005        5002                         
+     70006     2400.6 01-MAR-26        3007        5001                         
+     70007       5760 10-MAR-26        3002        5004                         
+     70008    1983.43 15-MAR-26        3004        5003                         
+     70009     2480.4 20-MAR-26        3005        5001                         
+     70010     250.45 01-APR-26        3008        5002                         
+
+10 rows selected.
+
+SQL> create table salesman_details( Sid INT PRIMARY KEY,    name VARCHAR(50),    city VARCHAR(50),    commission DECIMAL(5,2));
+
+Table created.
+
+SQL> desc salesman_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ COMMISSION                                         NUMBER(5,2)
+
+SQL> insert into salesman_details values (5001, 'James Hoog', 'New York', 0.15);
+
+1 row created.
+
+SQL> INSERT INTO salesman_details values((5002, 'Nail Knite', 'Paris', 0.13);
+INSERT INTO salesman_details values((5002, 'Nail Knite', 'Paris', 0.13)
+                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> INSERT INTO salesman_details values(5002, 'Nail Knite', 'Paris', 0.13);
+
+1 row created.
+
+SQL> insert into salesman_details values(5003, 'Lauson Hen', 'San Jose', 0.12);
+
+1 row created.
+
+SQL> insert into salesman_details values(5004, 'Pit Alex', 'London', 0.11);
+
+1 row created.
+
+SQL> insert into salesman_details values(5005, 'Mc Lyon', 'Paris', 0.14);
+
+1 row created.
+
+SQL> insert into salesman_details values(5006, 'Paul Adam', 'Rome', 0.13);
+
+1 row created.
+
+SQL> select *from salesman_details;
+
+       SID NAME                                                                 
+---------- --------------------------------------------------                   
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+      5001 James Hoog                                                           
+New York                                                  .15                   
+                                                                                
+      5002 Nail Knite                                                           
+Paris                                                     .13                   
+                                                                                
+      5003 Lauson Hen                                                           
+San Jose                                                  .12                   
+                                                                                
+
+       SID NAME                                                                 
+---------- --------------------------------------------------                   
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+      5004 Pit Alex                                                             
+London                                                    .11                   
+                                                                                
+      5005 Mc Lyon                                                              
+Paris                                                     .14                   
+                                                                                
+      5006 Paul Adam                                                            
+Rome                                                      .13                   
+                                                                                
+
+6 rows selected.
+
+SQL> create table customerraj(  C_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(Sid));
+create table customerraj(  C_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(Sid))
+                                                                                                                                                                               *
+ERROR at line 1:
+ORA-00904: "SID": invalid identifier 
+
+
+SQL> drop table custmoerraj;
+drop table custmoerraj
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 

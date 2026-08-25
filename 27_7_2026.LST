@@ -1,0 +1,43 @@
+alter table stud modify mobile number(10)not null;
+
+Table altered.
+
+SQL> desc stud;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(2)
+ STUD_NAME                                          VARCHAR2(15)
+ MOBILE                                    NOT NULL NUMBER(10)
+
+SQL> create table stud(id number(2)primary key,name varchar(15));
+create table stud(id number(2)primary key,name varchar(15))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create table stud2(id number(2)primary key,name varchar(15));
+
+Table created.
+
+SQL> desc stud2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(2)
+ NAME                                               VARCHAR2(15)
+
+SQL> create table stud (id number (2),name varchar2(15),mobile number(10),primary(id,name,mobile);
+create table stud (id number (2),name varchar2(15),mobile number(10),primary(id,name,mobile)
+                                                                            *
+ERROR at line 1:
+ORA-00902: invalid datatype 
+
+
+SQL>  create table stud2(id number (2),name varchar2(15),mobile number(10),primary(id,name,mobile);
+ create table stud2(id number (2),name varchar2(15),mobile number(10),primary(id,name,mobile)
+                                                                             *
+ERROR at line 1:
+ORA-00902: invalid datatype 
+
+
+SQL> 

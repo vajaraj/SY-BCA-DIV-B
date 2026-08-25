@@ -1,0 +1,94 @@
+desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER(5)
+ EMP_NAME                                           VARCHAR2(15)
+ POST                                               VARCHAR2(10)
+ MGR_ID                                             NUMBER(5)
+ HIRE_DATE                                          DATE
+ SALARY                                             NUMBER(6)
+ OMMISSION                                          NUMBER(5)
+ DEPT_ID                                            NUMBER(2)
+
+SQL> select *from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+BONUS                          TABLE                                            
+STUDENT                        TABLE                                            
+DC                             TABLE                                            
+DEPARTMENT                     TABLE                                            
+DEMO                           TABLE                                            
+EMPLOYEE                       TABLE                                            
+VP                             TABLE                                            
+REPORT                         TABLE                                            
+DEV_T                          TABLE                                            
+
+11 rows selected.
+
+SQL> create table stud(no number(2),name varchar 2(15));
+create table stud(no number(2),name varchar 2(15))
+                                            *
+ERROR at line 1:
+ORA-00906: missing left parenthesis 
+
+
+SQL> create table stud(no number(2),name varchar2(15));
+
+Table created.
+
+SQL> desc stud;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(2)
+ NAME                                               VARCHAR2(15)
+
+SQL> alter table stud add(mob number(10));
+
+Table altered.
+
+SQL> desc stud;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(2)
+ NAME                                               VARCHAR2(15)
+ MOB                                                NUMBER(10)
+
+SQL> alter table stud drop(mob);
+
+Table altered.
+
+SQL> desc stud;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(2)
+ NAME                                               VARCHAR2(15)
+
+SQL> alter table stud rename column name to stud_name;
+
+Table altered.
+
+SQL> desc stud;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(2)
+ STUD_NAME                                          VARCHAR2(15)
+
+SQL> drop table stud purge;
+
+Table dropped.
+
+SQL> insert into employee values(12345,'Bansipadia','Clerk','',date '1990-11-18',150000,'',10);
+
+1 row created.
+
+SQL> insert into emp1(emp_id,emp_name)values(123,'Baburav');
+insert into emp1(emp_id,emp_name)values(123,'Baburav')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 

@@ -1,0 +1,163 @@
+insert into salgrade values(1,700,1200);
+
+1 row created.
+
+SQL> insert into salgrade values(2,1201,1400);
+
+1 row created.
+
+SQL> insert into salgrade values(3,1401,2000);
+
+1 row created.
+
+SQL> insert into salgrade values(4,2001,3000);
+
+1 row created.
+
+SQL> insert into salgrade values(5,3001,9999);
+
+1 row created.
+
+SQL> select *from salgrade;
+
+     GRADE      LOSAL      HISAL                                                
+---------- ---------- ----------                                                
+         1        700       1200                                                
+         2       1201       1400                                                
+         3       1401       2000                                                
+         4       2001       3000                                                
+         5       3001       9999                                                
+
+SQL> select ename,esal,s.grade from emp e join salgrade s on e sal between s.losal and s.hisal;
+select ename,esal,s.grade from emp e join salgrade s on e sal between s.losal and s.hisal
+                                                          *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL>  select ename,esal,s.grade from emp e join salgrade s on e.sal  between s.losal and s.hisal;
+ select ename,esal,s.grade from emp e join salgrade s on e.sal  between s.losal and s.hisal
+              *
+ERROR at line 1:
+ORA-00904: "ESAL": invalid identifier 
+
+
+SQL>  select ename,esal,s.grade from emp e join salgrade s on esal  between s.losal and s.hisal;
+ select ename,esal,s.grade from emp e join salgrade s on esal  between s.losal and s.hisal
+                                                         *
+ERROR at line 1:
+ORA-00904: "ESAL": invalid identifier 
+
+
+SQL> SELECT ename, e.sal, s.grade
+  2  FROM emp e
+  3  JOIN salgrade s
+  4    ON e.sal BETWEEN s.losal AND s.hisal;
+
+ENAME             SAL      GRADE                                                
+---------- ---------- ----------                                                
+SMITH             800          1                                                
+JAMES             950          1                                                
+ADAMS            1100          1                                                
+WARD             1250          2                                                
+MARTIN           1250          2                                                
+MILLER           1300          2                                                
+TURNER           1500          3                                                
+ALLEN            1600          3                                                
+CLARK            2450          4                                                
+BLAKE            2850          4                                                
+JONES            2975          4                                                
+
+ENAME             SAL      GRADE                                                
+---------- ---------- ----------                                                
+SCOTT            3000          4                                                
+FORD             3000          4                                                
+KING             5000          5                                                
+
+14 rows selected.
+
+SQL> select e.empno,e.ename,d.deptno,d.dname from emp e inner join dept d on e.deptno=d.deptno;
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7782 CLARK              10 ACCOUNTING                                     
+      7839 KING               10 ACCOUNTING                                     
+      7934 MILLER             10 ACCOUNTING                                     
+      7566 JONES              20 RESEARCH                                       
+      7902 FORD               20 RESEARCH                                       
+      7876 ADAMS              20 RESEARCH                                       
+      7369 SMITH              20 RESEARCH                                       
+      7788 SCOTT              20 RESEARCH                                       
+      7521 WARD               30 SALES                                          
+      7844 TURNER             30 SALES                                          
+      7499 ALLEN              30 SALES                                          
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7900 JAMES              30 SALES                                          
+      7698 BLAKE              30 SALES                                          
+      7654 MARTIN             30 SALES                                          
+
+14 rows selected.
+
+SQL> select e.name,d.deptno,d.name from e left outer join dept d on e.deptno=d.eptno;
+select e.name,d.deptno,d.name from e left outer join dept d on e.deptno=d.eptno
+                                   *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT e.ename, d.deptno, d.dname
+  2  FROM emp e
+  3  LEFT OUTER JOIN dept d
+  4    ON e.deptno = d.deptno;
+
+ENAME          DEPTNO DNAME                                                     
+---------- ---------- --------------                                            
+MILLER             10 ACCOUNTING                                                
+KING               10 ACCOUNTING                                                
+CLARK              10 ACCOUNTING                                                
+FORD               20 RESEARCH                                                  
+ADAMS              20 RESEARCH                                                  
+SCOTT              20 RESEARCH                                                  
+JONES              20 RESEARCH                                                  
+SMITH              20 RESEARCH                                                  
+JAMES              30 SALES                                                     
+TURNER             30 SALES                                                     
+BLAKE              30 SALES                                                     
+
+ENAME          DEPTNO DNAME                                                     
+---------- ---------- --------------                                            
+MARTIN             30 SALES                                                     
+WARD               30 SALES                                                     
+ALLEN              30 SALES                                                     
+
+14 rows selected.
+
+SQL> SELECT e.ename, d.deptno, d.dname
+  2  FROM emp e RIGHT OUTER JOIN  dept d  ON e.deptno = d.deptno;
+
+ENAME          DEPTNO DNAME                                                     
+---------- ---------- --------------                                            
+CLARK              10 ACCOUNTING                                                
+KING               10 ACCOUNTING                                                
+MILLER             10 ACCOUNTING                                                
+JONES              20 RESEARCH                                                  
+FORD               20 RESEARCH                                                  
+ADAMS              20 RESEARCH                                                  
+SMITH              20 RESEARCH                                                  
+SCOTT              20 RESEARCH                                                  
+WARD               30 SALES                                                     
+TURNER             30 SALES                                                     
+ALLEN              30 SALES                                                     
+
+ENAME          DEPTNO DNAME                                                     
+---------- ---------- --------------                                            
+JAMES              30 SALES                                                     
+BLAKE              30 SALES                                                     
+MARTIN             30 SALES                                                     
+                   40 OPERATIONS                                                
+
+15 rows selected.
+
+SQL> 

@@ -1,0 +1,115 @@
+CREATE TABLE emp_details (    Emp_no NUMBER PRIMARY KEY,    fname VARCHAR2(50),    lname VARCHAR2(50),    emp_dept NUMBER);
+
+Table created.
+
+SQL> desc emp_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                    NOT NULL NUMBER
+ FNAME                                              VARCHAR2(50)
+ LNAME                                              VARCHAR2(50)
+ EMP_DEPT                                           NUMBER
+
+SQL> INSERT INTO emp_details VALUES (101, 'Raj', 'Patel', 57);
+
+1 row created.
+
+SQL> INSERT INTO emp_details VALUES (102, 'Amit', 'Doshi', 58);
+
+1 row created.
+
+SQL> INSERT INTO emp_details VALUES (103, 'Rahul', 'Joshi', 57);
+
+1 row created.
+
+SQL> INSERT INTO emp_details VALUES (104, 'Jay', 'Patel', 59);
+
+1 row created.
+
+SQL> INSERT INTO emp_details VALUES (105, 'Neha', 'Doshi', 57);
+
+1 row created.
+
+SQL> INSERT INTO emp_details VALUES (106, 'Ravi', 'Shah', 60);
+
+1 row created.
+
+SQL> select *from emp_details;
+
+    EMP_NO FNAME                                                                
+---------- --------------------------------------------------                   
+LNAME                                                EMP_DEPT                   
+-------------------------------------------------- ----------                   
+       101 Raj                                                                  
+Patel                                                      57                   
+                                                                                
+       102 Amit                                                                 
+Doshi                                                      58                   
+                                                                                
+       103 Rahul                                                                
+Joshi                                                      57                   
+                                                                                
+
+    EMP_NO FNAME                                                                
+---------- --------------------------------------------------                   
+LNAME                                                EMP_DEPT                   
+-------------------------------------------------- ----------                   
+       104 Jay                                                                  
+Patel                                                      59                   
+                                                                                
+       105 Neha                                                                 
+Doshi                                                      57                   
+                                                                                
+       106 Ravi                                                                 
+Shah                                                       60                   
+                                                                                
+
+6 rows selected.
+
+SQL> SELECT DISTINCT lname
+  2  FROM emp_details;
+
+LNAME                                                                           
+--------------------------------------------------                              
+Patel                                                                           
+Joshi                                                                           
+Shah                                                                            
+Doshi                                                                           
+
+SQL> SELECT *
+  2  FROM emp_details
+  3  WHERE emp_dept = 57;
+
+    EMP_NO FNAME                                                                
+---------- --------------------------------------------------                   
+LNAME                                                EMP_DEPT                   
+-------------------------------------------------- ----------                   
+       101 Raj                                                                  
+Patel                                                      57                   
+                                                                                
+       103 Rahul                                                                
+Joshi                                                      57                   
+                                                                                
+       105 Neha                                                                 
+Doshi                                                      57                   
+                                                                                
+
+SQL> SELECT *
+  2  FROM emp_details
+  3  WHERE lname IN ('Doshi', 'Joshi');
+
+    EMP_NO FNAME                                                                
+---------- --------------------------------------------------                   
+LNAME                                                EMP_DEPT                   
+-------------------------------------------------- ----------                   
+       102 Amit                                                                 
+Doshi                                                      58                   
+                                                                                
+       103 Rahul                                                                
+Joshi                                                      57                   
+                                                                                
+       105 Neha                                                                 
+Doshi                                                      57                   
+                                                                                
+
+SQL> 

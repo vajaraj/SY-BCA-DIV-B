@@ -1,0 +1,181 @@
+select *from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+BONUS                          TABLE                                            
+EMPLOYEE_NEW                   TABLE                                            
+BIN$siaG9bbkS9Wi2m2eSX5mIg==$0 TABLE                                            
+EMPLOYEE                       TABLE                                            
+STUD2                          TABLE                                            
+STUD1                          TABLE                                            
+STUD                           TABLE                                            
+STUDENT                        TABLE                                            
+DC                             TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPARTMENT                     TABLE                                            
+DEMO                           TABLE                                            
+VP                             TABLE                                            
+REPORT                         TABLE                                            
+DEV_T                          TABLE                                            
+
+16 rows selected.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> select *from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                 
+        20                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                 
+        10                                                                      
+                                                                                
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                 
+        20                                                                      
+                                                                                
+      7839 KING       PRESIDENT            17-NOV-81       5000                 
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0      
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                 
+        20                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+14 rows selected.
+
+SQL> create table emp(empno number(10) REFERNCE stud2 id));
+create table emp(empno number(10) REFERNCE stud2 id))
+                                  *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table emp(empno number(10)refernce stud2 id));
+create table emp(empno number(10)refernce stud2 id))
+                                 *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select count(job)as total job,average(sal)from emp group by job;
+select count(job)as total job,average(sal)from emp group by job
+                          *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL>  select count(job)as total job,average(sal)from emp group by job;
+ select count(job)as total job,average(sal)from emp group by job
+                           *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> 
+SQL> SELECT count(job) AS total_job, avg(sal)
+  2  FROM emp
+  3  GROUP BY job;
+
+ TOTAL_JOB   AVG(SAL)                                                           
+---------- ----------                                                           
+         4     1037.5                                                           
+         4       1400                                                           
+         1       5000                                                           
+         3 2758.33333                                                           
+         2       3000                                                           
+
+SQL> select dept no as total department,count(* as total employees)from emp group by dept number cou
+  2  
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> p[;p;[
+SP2-0042: unknown command "p[;p;[" - rest of line ignored.
+SQL> 
+SQL> select dept no as total department,count(* as total employees)from emp group by dept number co
+  2  
+SQL> select dept no as total department,count(* as total employees)from emp group by dept number having count (*)>3;
+select dept no as total department,count(* as total employees)from emp group by dept number having count (*)>3
+               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT deptno AS "total department", COUNT(*) AS "total employees"
+  2  FROM emp
+  3  GROUP BY deptno
+  4  HAVING COUNT(*) > 3;
+
+total department total employees                                                
+---------------- ---------------                                                
+              30               6                                                
+              20               5                                                
+
+SQL> 

@@ -1,0 +1,90 @@
+select *from employee;
+
+    EMP_ID EMP_NAME        POST           MGR_ID HIRE_DATE     SALARY  OMMISSION
+---------- --------------- ---------- ---------- --------- ---------- ----------
+   DEPT_ID                                                                      
+----------                                                                      
+     12345 BansiPadia      12                 12 18-NOV-90      15000       3000
+        10                                                                      
+                                                                                
+     13254 RadhaSharma     Salesman        12345 25-NOV-90      12000       4000
+        20                                                                      
+                                                                                
+     12675 TanmayDomadiya  President         234 05-JUL-85     124000        654
+        10                                                                      
+                                                                                
+
+    EMP_ID EMP_NAME        POST           MGR_ID HIRE_DATE     SALARY  OMMISSION
+---------- --------------- ---------- ---------- --------- ---------- ----------
+   DEPT_ID                                                                      
+----------                                                                      
+     13457 SurajPrakash    Salesman        12345 12-AUG-92      14650       1700
+        30                                                                      
+                                                                                
+     14567 SeemaLava       Programmer      13654 17-JUL-94      35000         12
+        10                                                                      
+                                                                                
+     16754 Krupavala       programmer      13654 13-AUG-92      30000          1
+        10                                                                      
+                                                                                
+
+    EMP_ID EMP_NAME        POST           MGR_ID HIRE_DATE     SALARY  OMMISSION
+---------- --------------- ---------- ---------- --------- ---------- ----------
+   DEPT_ID                                                                      
+----------                                                                      
+     13654 ParthVasoya     Analyst         12675 27-DEC-95      90000       2000
+        10                                                                      
+                                                                                
+     18654 RameshVasoya    Analyst         12675 15-MAY-93      85000         20
+        10                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> clear clen
+SP2-0158: unknown CLEAR option "clen"
+SQL> clear screen
+SQL> select *from employee;
+
+    EMP_ID EMP_NAME        POST           MGR_ID HIRE_DATE     SALARY  OMMISSION
+---------- --------------- ---------- ---------- --------- ---------- ----------
+   DEPT_ID                                                                      
+----------                                                                      
+     12345 BansiPadia      12                 12 18-NOV-90      15000       3000
+        10                                                                      
+                                                                                
+     13254 RadhaSharma     Salesman        12345 25-NOV-90      12000       4000
+        20                                                                      
+                                                                                
+     12675 TanmayDomadiya  President         234 05-JUL-85     124000        654
+        10                                                                      
+                                                                                
+
+    EMP_ID EMP_NAME        POST           MGR_ID HIRE_DATE     SALARY  OMMISSION
+---------- --------------- ---------- ---------- --------- ---------- ----------
+   DEPT_ID                                                                      
+----------                                                                      
+     13457 SurajPrakash    Salesman        12345 12-AUG-92      14650       1700
+        30                                                                      
+                                                                                
+     14567 SeemaLava       Programmer      13654 17-JUL-94      35000         12
+        10                                                                      
+                                                                                
+     16754 Krupavala       programmer      13654 13-AUG-92      30000          1
+        10                                                                      
+                                                                                
+
+    EMP_ID EMP_NAME        POST           MGR_ID HIRE_DATE     SALARY  OMMISSION
+---------- --------------- ---------- ---------- --------- ---------- ----------
+   DEPT_ID                                                                      
+----------                                                                      
+     13654 ParthVasoya     Analyst         12675 27-DEC-95      90000       2000
+        10                                                                      
+                                                                                
+     18654 RameshVasoya    Analyst         12675 15-MAY-93      85000         20
+        10                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> 

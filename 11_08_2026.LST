@@ -1,0 +1,255 @@
+CREATE TABLE Dept_mast (    Dept_no INT PRIMARY KEY,    Dept_name VARCHAR(50));
+
+Table created.
+
+SQL> CREATE TABLE Emp_mast (    Emp_no INT PRIMARY KEY,    Emp_name VARCHAR(50),    Dept_code INT,    Desi VARCHAR(50),    FOREIGN KEY (Dept_code) REFERENCES Dept_mast(Dept_no));
+
+Table created.
+
+SQL> CREATE TABLE Salary_mast (    Emp_no INT,    Sal DECIMAL(10,2),    HRA DECIMAL(10,2),    MA DECIMAL(10,2),    PF DECIMAL(10,2),    FOREIGN KEY (Emp_no) REFERENCES Emp_mast(Emp_no));
+
+Table created.
+
+SQL> desc dept_mast;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NO                                   NOT NULL NUMBER(38)
+ DEPT_NAME                                          VARCHAR2(50)
+
+SQL> desc emp_mast;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                    NOT NULL NUMBER(38)
+ EMP_NAME                                           VARCHAR2(50)
+ DEPT_CODE                                          NUMBER(38)
+ DESI                                               VARCHAR2(50)
+
+SQL> desc salary_mast;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                             NUMBER(38)
+ SAL                                                NUMBER(10,2)
+ HRA                                                NUMBER(10,2)
+ MA                                                 NUMBER(10,2)
+ PF                                                 NUMBER(10,2)
+
+SQL> SELECT
+  2      e.Emp_name,
+  3      d.Dept_name,
+  4      (s.Sal + s.HRA + s.MA - s.PF) AS Total_Salary
+  5  FROM Emp_mast e
+  6  JOIN Dept_mast d
+  7      ON e.Dept_code = d.Dept_no
+  8  JOIN Salary_mast s
+  9      ON e.Emp_no = s.Emp_no
+ 10  WHERE s.Sal > 2000
+ 11    AND s.Sal < 5000;
+
+no rows selected
+
+SQL> UPDATE Salary_mast
+  2  SET HRA = CASE
+  3                WHEN Sal > 2000 THEN 100
+  4                ELSE 200
+  5            END;
+
+0 rows updated.
+
+SQL> INSERT INTO Dept_mast VALUES (1, 'Computer');
+
+1 row created.
+
+SQL>  INSERT INTO Dept_mast VALUES(2, 'Accounts');
+
+1 row created.
+
+SQL>  INSERT INTO Dept_mast VALUES(3, 'HR');
+
+1 row created.
+
+SQL> INSERT INTO Dept_mast VALUES(4, 'Sales');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (101, 'Rahul', 1, 'Manager');
+
+1 row created.
+
+SQL>  INSERT INTO Emp_mast VALUES (102, 'Amit', 2, 'Clerk');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (103, 'Priya', 1, 'Developer');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (104, 'Neha', 3, 'HR Executive');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES (105, 'Raj', 4, 'Sales Executive');
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES (101, 4500, 150, 300, 200);
+
+1 row created.
+
+SQL>  INSERT INTO Salary_mast VALUES (102, 2500, 100, 200, 100);
+
+1 row created.
+
+SQL>  INSERT INTO Salary_mast VALUES (103, 3500, 120, 250, 150);
+
+1 row created.
+
+SQL>  INSERT INTO Salary_mast VALUES (104, 1800, 100, 150, 80);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES (105, 5000, 200, 300, 250);
+
+1 row created.
+
+SQL> SELECT
+  2      e.Emp_name,
+  3      d.Dept_name,
+  4      (s.Sal + s.HRA + s.MA - s.PF) AS Total_Salary
+  5  FROM Emp_mast e
+  6  JOIN Dept_mast d
+  7      ON e.Dept_code = d.Dept_no
+  8  JOIN Salary_mast s
+  9      ON e.Emp_no = s.Emp_no
+ 10  WHERE s.Sal > 2000
+ 11    AND s.Sal < 5000;
+
+EMP_NAME                                                                        
+--------------------------------------------------                              
+DEPT_NAME                                          TOTAL_SALARY                 
+-------------------------------------------------- ------------                 
+Rahul                                                                           
+Computer                                                   4750                 
+                                                                                
+Amit                                                                            
+Accounts                                                   2700                 
+                                                                                
+Priya                                                                           
+Computer                                                   3720                 
+                                                                                
+
+SQL> UPDATE Salary_mast
+  2  SET HRA = CASE
+  3                WHEN Sal > 2000 THEN 100
+  4                ELSE 200
+  5            END;
+
+5 rows updated.
+
+SQL> DELETE FROM Salary_mast
+  2  WHERE Emp_no IN (
+  3      SELECT e.Emp_no
+  4      FROM Emp_mast e
+  5      JOIN Dept_mast d
+  6          ON e.Dept_code = d.Dept_no
+  7      WHERE d.Dept_name = 'Computer'
+  8  );
+
+2 rows deleted.
+
+SQL> SELECT
+  2      c.cname AS Customer_Name,
+  3      s.name AS Salesman_Name,
+  4      s.city
+  5  FROM Customer c
+  6  JOIN Salesman s
+  7      ON c.city = s.city;
+FROM Customer c
+     *
+ERROR at line 5:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE Salesman (    salesman_id INT PRIMARY KEY,    name VARCHAR(50),    city VARCHAR(50),    commission DECIMAL(5,2));
+CREATE TABLE Salesman (    salesman_id INT PRIMARY KEY,    name VARCHAR(50),    city VARCHAR(50),    commission DECIMAL(5,2))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create table salesman_raj (    salesman_id INT PRIMARY KEY,    name VARCHAR(50),    city VARCHAR(50),    commission DECIMAL(5,2));
+
+Table created.
+
+SQL> desc salesman_raj;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALESMAN_ID                               NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ COMMISSION                                         NUMBER(5,2)
+
+SQL> insert into salesman_raj values(1, 'John', 'Mumbai', 0.15);
+
+1 row created.
+
+SQL>  insert into salesman_raj values(2, 'David', 'Delhi', 0.12);
+
+1 row created.
+
+SQL>  insert into salesman_raj values(3, 'Smith', 'Mumbai', 0.13);
+
+1 row created.
+
+SQL>  insert into salesman_raj values
+  2  (4, 'James', 'Pune', 0.10);
+
+1 row created.
+
+SQL> select *from salesman_raj;
+
+SALESMAN_ID NAME                                                                
+----------- --------------------------------------------------                  
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+          1 John                                                                
+Mumbai                                                    .15                   
+                                                                                
+          2 David                                                               
+Delhi                                                     .12                   
+                                                                                
+          3 Smith                                                               
+Mumbai                                                    .13                   
+                                                                                
+
+SALESMAN_ID NAME                                                                
+----------- --------------------------------------------------                  
+CITY                                               COMMISSION                   
+-------------------------------------------------- ----------                   
+          4 James                                                               
+Pune                                                       .1                   
+                                                                                
+
+SQL> CREATE TABLE Customer (    cust_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(salesman_id));
+CREATE TABLE Customer (    cust_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(salesman_id))
+                                                                                                                                                                                  *
+ERROR at line 1:
+ORA-00904: "SALESMAN_ID": invalid identifier 
+
+
+SQL> 
+SQL> ALTER TABLE Customer
+  2  ADD salesman_id NUMBER;
+ALTER TABLE Customer
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE Customer (    cust_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(salesman_id));
+CREATE TABLE Customer (    cust_id INT PRIMARY KEY,    cname VARCHAR(50),    city VARCHAR(50),    grade INT,    salesman_id INT,    FOREIGN KEY (salesman_id) REFERENCES Salesman(salesman_id))
+                                                                                                                                                                                  *
+ERROR at line 1:
+ORA-00904: "SALESMAN_ID": invalid identifier 
+
+
+SQL> 
