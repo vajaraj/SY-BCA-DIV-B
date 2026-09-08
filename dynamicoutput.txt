@@ -1,0 +1,10 @@
+int int rate
+float int rate
+p=1000
+r=10
+n=10
+ci=1593.743042
+p=1000
+r=0.1
+n=10
+ci=1593.743042
