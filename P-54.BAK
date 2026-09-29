@@ -1,0 +1,55 @@
+//CONVERSION FROM ONE CLASS TYPE TO ANOTHER CLASS TYPE
+#include<iostream.h>
+#include<conio.h>
+class B;
+class A
+{
+	int a,b;
+	public :
+		void get()
+		{
+			cout<<"\n ENTER A AND B :";
+			cin>>a>>b;
+		}
+		void put()
+		{
+			cout<<"\n A :"<<a<<"\t B :"<<b;
+		}
+		/*operator B()
+		{
+			B b1;
+			b1.sum=a+b;
+			return b1;
+		} */
+		int geta()
+		{
+			return a;
+		}
+		int getb()
+		{
+			return b;
+		}
+};
+class B
+{
+	int sum;
+	public :
+		/*B(A a1)
+		{
+			sum=a1.geta()+a1.getb();
+		}*/
+		void put()
+		{
+			cout<<"\n SUM="<<sum;
+		}
+};
+void main()
+{
+	A a1;
+	clrscr();
+	a1.get();
+	B b1=a1;
+	a1.put();
+	b1.put();
+	getch();
+}
